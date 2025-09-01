@@ -1,23 +1,31 @@
 {
-  "name": "next_react_use_form",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.2"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.2",
-    "@eslint/eslintrc": "^3"
-  }
+    "name": "next_react_use_form",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "build": "next build --turbopack",
+        "start": "next start",
+        "lint": "eslint"
+    },
+    "dependencies": {
+        "@hookform/resolvers": "^5.2.1",
+        "@supabase/supabase-js": "^2.56.1",
+        "axios": "^1.11.0",
+        "daisyui": "^5.0.54",
+        "mysql2": "^3.14.3",
+        "nanoid": "^5.1.5",
+        "next": "15.5.2",
+        "react": "19.1.0",
+        "react-dom": "19.1.0",
+        "react-hook-form": "^7.62.0",
+        "zod": "^4.1.5"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "^3",
+        "@tailwindcss/postcss": "^4.1.12",
+        "eslint": "^9",
+        "eslint-config-next": "15.5.2",
+        "tailwindcss": "^4.1.12"
+    }
 }
