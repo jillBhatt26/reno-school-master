@@ -1,9 +1,13 @@
 import School from '@/components/School';
-import { SchoolsServices } from '@/services/schools';
+// import { SchoolsServices } from '@/services/schools';
 import Link from 'next/link';
 
 const HomePage = async () => {
-    const schoolData = await SchoolsServices.fetchSchoolsAll();
+    // const schoolData = await SchoolsServices.fetchSchoolsAll();
+
+    const schoolData = {
+        schools: []
+    };
 
     return (
         <div className="container mx-auto my-20">
