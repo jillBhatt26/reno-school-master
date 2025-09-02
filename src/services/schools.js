@@ -34,7 +34,9 @@ class SchoolsServices {
 
     static fetchSchoolsAll = async () => {
         try {
-            const res = await fetch(this.BASE_URL, { cache: 'no-store' });
+            console.log('baseURL: ', this.BASE_URL);
+
+            const res = await fetch(this.BASE_URL);
 
             return await res.json();
         } catch (error) {
