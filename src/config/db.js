@@ -7,27 +7,19 @@ import {
     MYSQL_USERNAME
 } from './env';
 
-// const pool = mysql.createPool({
-//     host: MYSQL_HOSTNAME,
-//     user: MYSQL_USERNAME,
-//     password: MYSQL_PASSWORD,
-//     database: MYSQL_DB_NAME,
-//     port: MYSQL_PORT,
-//     waitForConnections: true,
-//     connectionLimit: 1,
-//     maxIdle: 1, // max idle connections, the default value is the same as `connectionLimit`
-//     idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value 60000
-//     queueLimit: 0,
-//     enableKeepAlive: true,
-//     keepAliveInitialDelay: 0
-// });
-
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: MYSQL_HOSTNAME,
     user: MYSQL_USERNAME,
     password: MYSQL_PASSWORD,
     database: MYSQL_DB_NAME,
-    port: MYSQL_PORT
+    port: MYSQL_PORT,
+    waitForConnections: true,
+    connectionLimit: 5,
+    maxIdle: 1, // max idle connections, the default value is the same as `connectionLimit`
+    idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value 60000
+    queueLimit: 0,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 0
 });
 
-export { connection };
+export { pool };

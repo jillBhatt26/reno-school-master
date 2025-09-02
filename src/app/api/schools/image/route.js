@@ -3,10 +3,7 @@ import { NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
 import { ZodError } from 'zod';
 import { supabase } from '@/config/supabase';
-import {
-    schoolImageSchema,
-    fdImageValidatorSchema
-} from '@/lib/schemas/schools';
+import { schoolImageSchema } from '@/lib/schemas/schools';
 
 export async function POST(request) {
     try {

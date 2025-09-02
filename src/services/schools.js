@@ -1,51 +1,44 @@
-import { request } from '@/config/axios';
+import { API_URL } from '@/config/env';
 
 class SchoolsServices {
-    static BASE_URL = '/schools';
+    static BASE_URL = `${API_URL}/schools`;
 
     static create = async data => {
         try {
-            const res = await request({
-                url: this.BASE_URL,
+            const res = await fetch(this.BASE_URL, {
                 method: 'POST',
-                data
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
-            return res.data;
+            return await res.json();
         } catch (error) {
-            throw error.response.data ?? error.message ?? error;
+            throw error.message ?? error;
         }
     };
 
     static saveSchoolImage = async data => {
         try {
-            const res = await request({
-                url: `${this.BASE_URL}/image`,
+            const res = await fetch(`${this.BASE_URL}/image`, {
                 method: 'POST',
-                data,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                body: data
             });
 
-            return res.data;
+            return await res.json();
         } catch (error) {
-            throw error.response.data ?? error.message ?? error;
+            throw error.message ?? error;
         }
     };
 
     static fetchSchoolsAll = async () => {
         try {
-            console.log('url: ', this.BASE_URL);
+            const res = await fetch(this.BASE_URL);
 
-            const res = await request({
-                url: this.BASE_URL
-            });
-
-            return res.data;
+            return await res.json();
         } catch (error) {
-            console.log('error: ', error);
-            throw error.response.data ?? error.message ?? error;
+            throw error.message ?? error;
         }
     };
 }

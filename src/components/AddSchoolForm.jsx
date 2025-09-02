@@ -21,12 +21,12 @@ const AddSchoolForm = () => {
         formState: { errors, isSubmitting, isSubmitSuccessful }
     } = useForm({
         defaultValues: {
-            name: '',
-            state: '',
-            address: '',
-            city: '',
-            contact: '',
-            email_id: '',
+            name: 'asdf',
+            state: 'asdf',
+            address: 'asdf',
+            city: 'asdf',
+            contact: '1231231231',
+            email_id: 'asdf@zxcv.com',
             image: null
         },
         resolver: zodResolver(schoolFormInputsSchema)

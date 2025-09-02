@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server';
 import { saveSchoolDataSchema } from '@/lib/schemas/schools';
 import { ZodError } from 'zod';
-import { connection } from '@/config/db';
+import { pool } from '@/config/db';
 import { supabase } from '@/config/supabase';
 
 export async function GET() {
     try {
-        const conn = await connection;
-
-        const [rows] = await conn.query('SELECT * FROM schools');
+        const [rows] = await pool.query('SELECT * FROM schools');
 
         const schools = await Promise.all(
             rows.map(async r => {
@@ -43,9 +41,7 @@ export async function POST(request) {
         const { address, city, contact, email_id, image, name, state } =
             validatedBody;
 
-        const conn = await connection;
-
-        const [results] = await conn.execute(
+        const [results] = await pool.execute(
             'INSERT INTO schools (name, address, city, state, contact, image, email_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [name, address, city, state, contact, image, email_id]
         );
