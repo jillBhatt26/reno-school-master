@@ -1,9 +1,11 @@
 import School from '@/components/School';
-import { SchoolsServices } from '@/services/schools';
+import { API_URL } from '@/config/env';
 import Link from 'next/link';
 
 const HomePage = async () => {
-    const schoolData = await SchoolsServices.fetchSchoolsAll();
+    const schoolRes = await fetch(`${API_URL}/schools`);
+
+    const schoolData = await schoolRes.json();
 
     return (
         <div className="container mx-auto my-20">

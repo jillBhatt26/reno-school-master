@@ -32,17 +32,15 @@ class SchoolsServices {
         }
     };
 
-    static fetchSchoolsAll = async () => {
-        try {
-            const res = await fetch(
-                'https://reno-school-master-cjms.vercel.app/api/schools'
-            );
+    // static fetchSchoolsAll = async () => {
+    //     try {
+    //         const res = await fetch(this.BASE_URL);
 
-            return await res.json();
-        } catch (error) {
-            throw error.message ?? error;
-        }
-    };
+    //         return await res.json();
+    //     } catch (error) {
+    //         throw error.message ?? error;
+    //     }
+    // };
 }
 
 export { SchoolsServices };
