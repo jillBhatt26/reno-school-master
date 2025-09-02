@@ -9,7 +9,7 @@ const HomePage = async () => {
         <div className="container mx-auto my-20">
             <div className="mt-10 space-y-10 flex flex-col justify-center items-center">
                 <Link
-                    href="/add"
+                    href="/new"
                     className="btn btn-md btn-primary rounded max-w-40"
                 >
                     Add School

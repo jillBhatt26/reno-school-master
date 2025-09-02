@@ -7,7 +7,7 @@ import { schoolFormInputsSchema } from '@/lib/schemas/schools';
 import { SchoolsServices } from '@/services/schools';
 import { redirect, RedirectType } from 'next/navigation';
 
-const AddSchoolForm = () => {
+const NewSchoolForm = () => {
     // states
     const [previewImageURL, setPreviewImageURL] = useState(null);
     const [createdSchoolID, setCreatedSchoolID] = useState(null);
@@ -39,7 +39,7 @@ const AddSchoolForm = () => {
     }, [createdSchoolID, isSubmitSuccessful]);
 
     // event handlers
-    const handleAddSchoolFormSubmit = async data => {
+    const handleNewSchoolFormSubmit = async data => {
         try {
             const formData = new FormData();
 
@@ -68,13 +68,13 @@ const AddSchoolForm = () => {
 
     return (
         <div className="w-full px-5 md:w-1/2 md:px-0 lg:w-1/3 xl:w-1/4 mx-auto">
-            <h1 className="text-center text-2xl mb-5">Add School</h1>
+            <h1 className="text-center text-2xl mb-5">New School</h1>
 
             <form
                 noValidate
                 autoComplete="off"
                 className="min-w-40 w-full space-y-5"
-                onSubmit={handleSubmit(handleAddSchoolFormSubmit)}
+                onSubmit={handleSubmit(handleNewSchoolFormSubmit)}
             >
                 {errors && errors.root && errors.root.message && (
                     <div
@@ -236,4 +236,4 @@ const AddSchoolForm = () => {
     );
 };
 
-export default AddSchoolForm;
+export default NewSchoolForm;
