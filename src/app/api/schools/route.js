@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 import { addSchoolData } from '@/lib/schemas/schools';
+import { ZodError } from 'zod';
 
-export async function GET() {}
+export async function GET() {
+    return NextResponse.json([], { status: 200 });
+}
 
 export async function POST(request) {
     try {
@@ -15,9 +18,10 @@ export async function POST(request) {
     } catch (error) {
         if (error instanceof ZodError)
             return NextResponse.json(
-                error.issues.map(issue => issue.message).join(', ')
+                error.issues.map(issue => issue.message).join(', '),
+                { status: 400 }
             );
 
-        return NextResponse.json('Failed to create new post!');
+        return NextResponse.json('Failed to create new post!', { status: 500 });
     }
 }

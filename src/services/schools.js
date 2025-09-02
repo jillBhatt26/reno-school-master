@@ -7,3 +7,5 @@ class SchoolsServices {
 
     static fetchSchoolImage = async name => {};
 }
+
+export { SchoolsServices };

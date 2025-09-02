@@ -1,22 +1,29 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/config/supabase';
+import { ZodError } from 'zod';
 import { NODE_ENV } from '@/config/env';
+import { supabase } from '@/config/supabase';
 
-export async function GET(request) {
+export async function GET(_, { params }) {
     try {
-        const filename = request.nextUrl.searchParams.get('name');
+        const filename = (await params).name;
 
-        const { data } = supabase.storage
+        const { data, error } = await supabase.storage
             .from(NODE_ENV === 'production' ? 'images-prod' : 'images-dev')
-            .getPublicUrl(filename);
+            .createSignedUrl(filename, 3600);
 
-        return NextResponse(data.publicUrl);
+        if (error) throw error;
+
+        return NextResponse.json(data.signedUrl, { status: 200 });
     } catch (error) {
         if (error instanceof ZodError)
             return NextResponse.json(
-                error.issues.map(issue => issue.message).join(', ')
+                error.issues.map(issue => issue.message).join(', '),
+                { status: 400 }
             );
 
-        return NextResponse.json('Failed to fetch school image!');
+        return NextResponse.json(
+            error.message ?? 'Failed to fetch school image!',
+            { status: 500 }
+        );
     }
 }

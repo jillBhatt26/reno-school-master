@@ -52,6 +52,10 @@ const addSchoolData = z.object({
     image_url: z.url('Invalid image url').trim()
 });
 
+// const fullSchoolSchema = addSchoolData.extend({
+//     image: schoolImageSchema
+// });
+
 const fullSchoolSchema = addSchoolData.extend({
     image: schoolImageSchema
 });
