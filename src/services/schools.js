@@ -34,9 +34,9 @@ class SchoolsServices {
 
     static fetchSchoolsAll = async () => {
         try {
-            console.log('baseURL: ', this.BASE_URL);
-
-            const res = await fetch(this.BASE_URL);
+            const res = await fetch(
+                'https://reno-school-master-cjms.vercel.app/api/schools'
+            );
 
             return await res.json();
         } catch (error) {
