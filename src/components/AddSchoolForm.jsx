@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { fullSchoolSchema } from '@/lib/schemas/schools';
+import { schoolFormInputsSchema } from '@/lib/schemas/schools';
 import { SchoolsServices } from '@/services/schools';
 
 const AddSchoolForm = () => {
@@ -16,6 +16,7 @@ const AddSchoolForm = () => {
         handleSubmit,
         setError,
         getValues,
+        reset,
         formState: { errors, isSubmitting }
     } = useForm({
         defaultValues: {
@@ -27,7 +28,7 @@ const AddSchoolForm = () => {
             email_id: 'a@b.com',
             image: null
         },
-        resolver: zodResolver(fullSchoolSchema)
+        resolver: zodResolver(schoolFormInputsSchema)
     });
 
     // event handlers
@@ -37,10 +38,22 @@ const AddSchoolForm = () => {
 
             formData.set('image', getValues('image')[0]);
 
-            const data = await SchoolsServices.saveSchoolImage(formData);
+            const saveImageData = await SchoolsServices.saveSchoolImage(
+                formData
+            );
 
-            alert('Success!');
-            // TODO: Save remaining data to MySQL DB
+            if (saveImageData.path) {
+                const createData = await SchoolsServices.create({
+                    ...data,
+                    image: saveImageData.path
+                });
+
+                if (createData.schoolID) {
+                    reset();
+                    setPreviewImageURL(null);
+                    alert('Success!!');
+                }
+            }
         } catch (error) {
             setError('root', {
                 type: 'custom',

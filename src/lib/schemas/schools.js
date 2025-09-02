@@ -24,35 +24,51 @@ const schoolImageSchema = z
 
 const addSchoolData = z.object({
     name: z
-        .string()
+        .string('Name is required')
         .trim()
         .min(3, 'More than 3 characters')
         .max(255, 'Less than 255 characters'),
     address: z
-        .string()
+        .string('Address is required')
         .trim()
         .min(3, 'More than 3 characters')
         .max(255, 'Less than 255 characters'),
     city: z
-        .string()
+        .string('City is required')
         .trim()
         .min(3, 'More than 3 characters')
         .max(255, 'Less than 255 characters'),
     state: z
-        .string()
+        .string('State is required')
         .trim()
         .min(3, 'More than 3 characters')
         .max(255, 'Less than 255 characters'),
     email_id: z.email('Invalid email').trim(),
     contact: z
-        .string()
+        .string('Contact is required')
         .trim()
         .regex(/^\d+$/, 'Must be only digits')
-        .length(10, 'Must be 10 digits')
-});
-
-const fullSchoolSchema = addSchoolData.extend({
+        .length(10, 'Must be 10 digits'),
     image: schoolImageSchema
 });
 
-export { addSchoolData, schoolImageSchema, fullSchoolSchema };
+const imageNameSchema = z
+    .string('School image is required')
+    .trim()
+    .min(3, 'More than 3 characters')
+    .max(255, 'Less than 255 characters');
+
+const schoolFormInputsSchema = addSchoolData.extend({
+    image: schoolImageSchema
+});
+
+const saveSchoolDataSchema = addSchoolData.extend({
+    image: imageNameSchema
+});
+
+export {
+    addSchoolData,
+    schoolImageSchema,
+    schoolFormInputsSchema,
+    saveSchoolDataSchema
+};
