@@ -36,6 +36,8 @@ class SchoolsServices {
 
     static fetchSchoolsAll = async () => {
         try {
+            console.log('url: ', this.BASE_URL);
+
             const res = await request({
                 url: this.BASE_URL
             });
