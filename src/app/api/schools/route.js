@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { saveSchoolDataSchema } from '@/lib/schemas/schools';
 import { ZodError } from 'zod';
 import { connection } from '@/config/db';
+import { supabase } from '@/config/supabase';
 
 export async function GET() {
     try {
@@ -9,11 +10,22 @@ export async function GET() {
 
         const [rows] = await conn.query('SELECT * FROM schools');
 
-        // TODO: For each school, get the image signed url from supabase and return the results
+        const schools = await Promise.all(
+            rows.map(async r => {
+                const { data, error } = await supabase.storage
+                    .from('images')
+                    .createSignedUrl(r.image, 3600);
+
+                return {
+                    ...r,
+                    image: data.signedUrl
+                };
+            })
+        );
 
         return NextResponse.json(
             {
-                schools: rows
+                schools
             },
             { status: 200 }
         );

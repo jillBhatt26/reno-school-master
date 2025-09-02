@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import { NODE_ENV } from '@/config/env';
 import { supabase } from '@/config/supabase';
 
 export async function GET(_, { params }) {
@@ -8,7 +7,7 @@ export async function GET(_, { params }) {
         const filename = (await params).name;
 
         const { data, error } = await supabase.storage
-            .from(NODE_ENV === 'production' ? 'images-prod' : 'images-dev')
+            .from('images')
             .createSignedUrl(filename, 3600);
 
         if (error) throw error;

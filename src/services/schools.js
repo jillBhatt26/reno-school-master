@@ -37,11 +37,12 @@ class SchoolsServices {
     static fetchSchoolsAll = async () => {
         try {
             const res = await request({
-                url: `${this.BASE_URL}/image`
+                url: this.BASE_URL
             });
 
             return res.data;
         } catch (error) {
+            console.log('error: ', error);
             throw error.response.data ?? error.message ?? error;
         }
     };

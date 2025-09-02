@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schoolFormInputsSchema } from '@/lib/schemas/schools';
 import { SchoolsServices } from '@/services/schools';
+import { redirect, RedirectType } from 'next/navigation';
 
 const AddSchoolForm = () => {
     // states
     const [previewImageURL, setPreviewImageURL] = useState(null);
+    const [createdSchoolID, setCreatedSchoolID] = useState(null);
 
     // hooks
     const {
@@ -16,20 +18,25 @@ const AddSchoolForm = () => {
         handleSubmit,
         setError,
         getValues,
-        reset,
-        formState: { errors, isSubmitting }
+        formState: { errors, isSubmitting, isSubmitSuccessful }
     } = useForm({
         defaultValues: {
-            name: 'asdf',
-            state: 'asdf',
-            address: 'asdf',
-            city: 'asdf',
-            contact: '1231231231',
-            email_id: 'a@b.com',
+            name: '',
+            state: '',
+            address: '',
+            city: '',
+            contact: '',
+            email_id: '',
             image: null
         },
         resolver: zodResolver(schoolFormInputsSchema)
     });
+
+    // effects
+    useEffect(() => {
+        if (createdSchoolID && isSubmitSuccessful)
+            redirect('/', RedirectType.push);
+    }, [createdSchoolID, isSubmitSuccessful]);
 
     // event handlers
     const handleAddSchoolFormSubmit = async data => {
@@ -48,11 +55,8 @@ const AddSchoolForm = () => {
                     image: saveImageData.path
                 });
 
-                if (createData.schoolID) {
-                    reset();
-                    setPreviewImageURL(null);
-                    alert('Success!!');
-                }
+                if (createData.schoolID)
+                    setCreatedSchoolID(createData.schoolID);
             }
         } catch (error) {
             setError('root', {

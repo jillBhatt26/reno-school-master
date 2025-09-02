@@ -1,13 +1,12 @@
 import path from 'path';
 import { NextResponse } from 'next/server';
+import { nanoid } from 'nanoid';
 import { ZodError } from 'zod';
 import { supabase } from '@/config/supabase';
 import {
     schoolImageSchema,
     fdImageValidatorSchema
 } from '@/lib/schemas/schools';
-import { NODE_ENV } from '@/config/env';
-import { nanoid } from 'nanoid';
 
 export async function POST(request) {
     try {
@@ -20,7 +19,7 @@ export async function POST(request) {
         const filepath = `${nanoid()}${path.extname(imageFile.name)}`;
 
         const { data, error } = await supabase.storage
-            .from(NODE_ENV === 'production' ? 'images-prod' : 'images-dev')
+            .from('images')
             .upload(filepath, imageFile);
 
         if (error) throw error;
