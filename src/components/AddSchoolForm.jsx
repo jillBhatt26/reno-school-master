@@ -1,24 +1,30 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { fullSchoolSchema } from '@/lib/schemas/schools';
+import { SchoolsServices } from '@/services/schools';
 
 const AddSchoolForm = () => {
+    // states
+    const [previewImageURL, setPreviewImageURL] = useState(null);
+
     // hooks
     const {
         register,
         handleSubmit,
+        setError,
+        getValues,
         formState: { errors, isSubmitting }
     } = useForm({
         defaultValues: {
-            name: '',
-            state: '',
-            address: '',
-            city: '',
-            contact: '',
-            email_id: '',
-            image_url: null,
+            name: 'asdf',
+            state: 'asdf',
+            address: 'asdf',
+            city: 'asdf',
+            contact: '1231231231',
+            email_id: 'a@b.com',
             image: null
         },
         resolver: zodResolver(fullSchoolSchema)
@@ -26,9 +32,21 @@ const AddSchoolForm = () => {
 
     // event handlers
     const handleAddSchoolFormSubmit = async data => {
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        try {
+            const formData = new FormData();
 
-        console.log('data: ', data.image);
+            formData.set('image', getValues('image')[0]);
+
+            const data = await SchoolsServices.saveSchoolImage(formData);
+
+            alert('Success!');
+            // TODO: Save remaining data to MySQL DB
+        } catch (error) {
+            setError('root', {
+                type: 'custom',
+                message: String(error.message ?? error)
+            });
+        }
     };
 
     return (
@@ -159,7 +177,12 @@ const AddSchoolForm = () => {
                         name="image"
                         accept="image/*"
                         className="hidden"
-                        {...register('image')}
+                        {...register('image', {
+                            onChange: e =>
+                                setPreviewImageURL(
+                                    URL.createObjectURL(e.target.files[0])
+                                )
+                        })}
                     />
 
                     <label
@@ -168,6 +191,10 @@ const AddSchoolForm = () => {
                     >
                         School Image
                     </label>
+
+                    {previewImageURL && (
+                        <img src={previewImageURL} className="my-5" />
+                    )}
 
                     {errors && errors.image && errors.image.message && (
                         <p className="text-rose-400 text-sm">

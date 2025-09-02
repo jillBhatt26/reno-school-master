@@ -3,6 +3,11 @@ import { addSchoolData } from '@/lib/schemas/schools';
 import { ZodError } from 'zod';
 
 export async function GET() {
+    // TODO:
+    // -> Query DB
+    // -> For each school, get the imageURL
+    // -> Return array having the imageURL as key along with other keys
+
     return NextResponse.json([], { status: 200 });
 }
 

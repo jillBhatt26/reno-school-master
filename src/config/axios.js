@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL } from './env';
 
-const request = axios({
+const request = axios.create({
     baseURL: API_URL,
     withCredentials: true,
     headers: {

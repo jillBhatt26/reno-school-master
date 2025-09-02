@@ -47,14 +47,9 @@ const addSchoolData = z.object({
     contact: z
         .string()
         .trim()
+        .regex(/^\d+$/, 'Must be only digits')
         .length(10, 'Must be 10 digits')
-        .regex(/^\d+$/, 'Must be only digits'),
-    image_url: z.url('Invalid image url').trim()
 });
-
-// const fullSchoolSchema = addSchoolData.extend({
-//     image: schoolImageSchema
-// });
 
 const fullSchoolSchema = addSchoolData.extend({
     image: schoolImageSchema
