@@ -1,3 +1,5 @@
+'use client';
+
 import NewSchoolForm from '@/components/NewSchoolForm';
 
 const NewSchoolPage = () => {
