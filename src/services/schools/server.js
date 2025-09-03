@@ -4,7 +4,7 @@ class SchoolsServerServices {
     static BASE_URL = `${API_URL}/schools`;
 
     static fetchSchoolsAll = async () => {
-        console.log('BASE_URL', BASE_URL);
+        console.log('BASE_URL', this.BASE_URL);
 
         try {
             const res = await fetch(this.BASE_URL);
