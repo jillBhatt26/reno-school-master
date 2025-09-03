@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        BASE_URL: process.env.VERCEL_URL || 'localhost:3000',
+        BASE_URL: process.env.BASE_URL || 'localhost:3000',
         SUPABASE_URL: process.env.SUPABASE_URL || '',
         SUPABASE_KEY: process.env.SUPABASE_KEY || '',
         MYSQL_DB_NAME: process.env.MYSQL_DB_NAME || '',
