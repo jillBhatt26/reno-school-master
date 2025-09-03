@@ -15,7 +15,7 @@ class SchoolsClientServices {
 
             return await res.json();
         } catch (error) {
-            throw error.message ?? error;
+            return error.message ?? error;
         }
     };
 
@@ -28,7 +28,7 @@ class SchoolsClientServices {
 
             return await res.json();
         } catch (error) {
-            throw error.message ?? error;
+            return error.message ?? error;
         }
     };
 }

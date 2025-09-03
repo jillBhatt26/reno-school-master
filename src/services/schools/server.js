@@ -10,7 +10,7 @@ class SchoolsServerServices {
             const res = await fetch(this.BASE_URL);
             return await res.json();
         } catch (error) {
-            throw error.message ?? error;
+            return error.message ?? error;
         }
     };
 }
