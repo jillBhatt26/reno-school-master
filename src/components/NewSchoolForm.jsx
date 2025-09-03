@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schoolFormInputsSchema } from '@/lib/schemas/schools';
-import { SchoolsServices } from '@/services/schools';
+import { SchoolsClientServices } from '@/services/schools/client';
 import { redirect, RedirectType } from 'next/navigation';
 
 const NewSchoolForm = () => {
@@ -45,12 +45,12 @@ const NewSchoolForm = () => {
 
             formData.set('image', getValues('image')[0]);
 
-            const saveImageData = await SchoolsServices.saveSchoolImage(
+            const saveImageData = await SchoolsClientServices.saveSchoolImage(
                 formData
             );
 
             if (saveImageData.path) {
-                const createData = await SchoolsServices.create({
+                const createData = await SchoolsClientServices.create({
                     ...data,
                     image: saveImageData.path
                 });

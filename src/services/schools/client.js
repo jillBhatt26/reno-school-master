@@ -1,7 +1,7 @@
-import { API_URL } from '@/config/env';
+'use client';
 
-class SchoolsServices {
-    static BASE_URL = `${API_URL}/schools`;
+class SchoolsClientServices {
+    static BASE_URL = `/api/schools`;
 
     static create = async data => {
         try {
@@ -31,16 +31,6 @@ class SchoolsServices {
             throw error.message ?? error;
         }
     };
-
-    // static fetchSchoolsAll = async () => {
-    //     try {
-    //         const res = await fetch(this.BASE_URL);
-
-    //         return await res.json();
-    //     } catch (error) {
-    //         throw error.message ?? error;
-    //     }
-    // };
 }
 
-export { SchoolsServices };
+export { SchoolsClientServices };
